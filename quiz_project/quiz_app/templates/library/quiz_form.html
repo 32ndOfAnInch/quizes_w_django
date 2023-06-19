@@ -4,15 +4,20 @@
 
 <h1>{{ quiz.name }}</h1>
 <form method="post" action="">
-{% csrf_token %}
-{% for question in questions %}
-<h2>{{ question.text }}</h2>
-<ul>
-{% for answer in question.answer_set.all %}
-<li><input type="radio" name="question{{ question.id }}" value="{{ answer.id }}"> {{ answer.text }}</li>
-{% endfor %}
-</ul>
-{% endfor %}
+    {% csrf_token %}
+    {% for question in questions %}
+        <h2>{{ question.text }}</h2>
+        <ul>
+            {% for answer in question.answers.all %}
+                <li>
+                    <label>
+                        <input type="radio" name="question{{ question.id }}" value="{{ answer.id }}"> 
+                        {{ answer.text }}
+                    </label>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 <input type="submit" value="Submit">
 </form>
 
