@@ -1,0 +1,9 @@
+{% include 'base.html' %}
+
+
+{% block content %}
+{% for quiz in quizzes %}
+<h1>{{ quiz.name }}</h1>
+<a href="{% url 'quiz_app:quiz_details' quiz.pk %}">{{ quiz.name }}</a>
+{% endfor %}
+{% endblock content %}

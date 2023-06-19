@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Quiz Result</h1>
+<h2>{{ object.quiz.name }}</h2>
+<p>{{ object.user.username }}</p>
+<p>Score: {{ object.score }}%</p>
+{% endblock content %}

@@ -17,7 +17,7 @@ class Quiz(models.Model):
         return f"{self.name}-{self.topic}"
 
     def get_questions(self):
-        questions = list(self.question_set.all())
+        questions = list(self.questions.all())
         random.shuffle(questions)
         return questions[:self.number_of_questions]
 
@@ -51,7 +51,7 @@ class Question(models.Model):
         return f"{self.text}"
 
     def get_answers(self):
-        return self.answer_set.all()
+        return self.answers.all()
     
     def get_absolute_url(self):
         return reverse("question_detail", kwargs={"pk": self.pk})
