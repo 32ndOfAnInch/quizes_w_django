@@ -5,6 +5,7 @@ import random
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from datetime import datetime
+from tinymce.models import HTMLField
 
 User = get_user_model()
 
@@ -35,7 +36,7 @@ class Quiz(models.Model):
 
 
 class Question(models.Model):
-    text = models.CharField(_("text"), max_length=200)
+    text = HTMLField(_("text"), max_length=200)
     quiz = models.ForeignKey(
         Quiz,
         verbose_name=_("quiz"),

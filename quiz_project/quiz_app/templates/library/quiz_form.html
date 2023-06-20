@@ -6,7 +6,7 @@
 <form method="post" action="">
     {% csrf_token %}
     {% for question in questions %}
-        <h2>{{ question.text }}</h2>
+        <p>{{ question.text|safe }}</p>
         <ul>
             {% for answer in question.answers.all %}
                 <li>
