@@ -1,16 +1,53 @@
-{% load static %}
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+
+    <input class="navbar-input" type="checkbox" id="toggle">
+    <nav>
+
+        <a class="logo" href="{% url 'quiz_app:index' %}">quiz</a>
+
+        <label class="navbar-toggler" for="toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </label>
+
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link">About</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" id="user-user-name">&#128100;{{ user.username }}</a>
+            </li>
+            <li class="nav-item" id="user-logout">
+                <a href="{% url 'logout' %}" class="nav-link">Log Out</a>
+            </li>
+            {% else %}
+            <li class="nav-item" id="user-logout">
+                <a href="{% url 'login' %}?next={{request.path}}" class="nav-link">Login</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link">Home3</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Home4</a>
+            </li>
+        </ul>
+    </nav>
     <div>
         {% block content %}
         {% endblock content %}
     </div>
+    <footer></footer>
 </body>
 </html>
