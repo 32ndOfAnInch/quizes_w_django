@@ -8,6 +8,9 @@ class AnswerInline(admin.TabularInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
+    model = models.Question
+    list_display = ('text', 'quiz')
+    search_fields = ('text', )
     inlines = [AnswerInline]
 
 

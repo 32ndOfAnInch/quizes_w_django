@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from . import models
-from django.views.generic import ListView
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse, HttpResponseRedirect
-from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse, HttpResponseRedirect
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views import generic
+from . import models
 
 
 def index(request):
@@ -47,6 +47,8 @@ def quiz_details(request, pk: int):
             'questions': questions
         })
 
+
 class ResultDetailView(LoginRequiredMixin, DetailView):
     model = models.Result
     template_name = 'library/result_detail.html'
+
