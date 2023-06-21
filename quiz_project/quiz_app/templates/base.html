@@ -24,10 +24,12 @@
             <li class="nav-item">
                 <a class="nav-link">About</a>
             </li>
-            
+
+            {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link">Dashboard</a>
+                <a href="{% url 'quiz_app:quiz_list' %}" class="nav-link">Dashboard</a>
             </li>
+            {% endif %}
 
             {% if user.is_authenticated %}
                 {% if user.is_staff or user.is_superuser %}

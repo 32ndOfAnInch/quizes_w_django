@@ -87,15 +87,21 @@ class Result(models.Model):
         verbose_name=_("result"),
         on_delete=models.CASCADE,
         related_name="results",
-        )
+    )
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),
         on_delete=models.CASCADE,
         related_name="quiz_results",
-        )
+    )
     score = models.FloatField(_("score"))
-
+    questions_attempted = models.ManyToManyField(Question, related_name="result_attempts")
+    user_answers = models.ManyToManyField(
+        Answer,
+        verbose_name=_("user answers"),
+        blank=True,
+        related_name="user_results",
+    )
 
     class Meta:
         verbose_name = _("result")
