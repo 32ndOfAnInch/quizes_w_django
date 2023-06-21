@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from . forms import ProfileUpdateForm, UserUpdateForm
+from .import models
 
 
 User = get_user_model()
@@ -66,6 +67,15 @@ def signup(request):
             )
             user.set_password(password)
             user.save()
+
+            # create a new Profile object for the user
+            profile = models.Profile.objects.create(user=user)
+            
+            # save the profile picture if provided
+            profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+            if profile_form.is_valid():
+                profile_form.save()
+
             messages.success(request, "User registration successful!")
             return redirect('login')
     return render(request, 'user_profile/signup.html')
