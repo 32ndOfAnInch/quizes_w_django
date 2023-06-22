@@ -31,6 +31,8 @@ def quiz_details(request, pk: int):
         score = 0
         attempted_questions = []  # Store the attempted questions
         user_answers = []
+        user_incorrect_answers = []
+
         for question in questions:
             selected_answer_id = request.POST.get('question{}'.format(question.id))
             selected_answer = question.answers.filter(id=selected_answer_id).first()
@@ -38,13 +40,19 @@ def quiz_details(request, pk: int):
                 score += 1
                 attempted_questions.append(question)  # Add the attempted question
                 user_answers.append(selected_answer)  # Add the user's answer
+            elif selected_answer == False:  # Answered incorrectly
+                attempted_questions.append(question)
+            else:
+                user_incorrect_answers.append(selected_answer)
         result = models.Result.objects.create(
             quiz=quiz,
             user=request.user,
-            score=score/quiz.number_of_questions*100
+            score=round((score/quiz.number_of_questions*100),2)
         )
         result.questions_attempted.set(attempted_questions)  # Set the attempted questions
         result.user_answers.set(user_answers)  # Set user's answers for the correctly answered questions
+        result.user_incorrect_answers.set(user_incorrect_answers)  # Set user's answers for incorrectly answered questions
+        print(user_incorrect_answers)
         return HttpResponseRedirect(reverse('quiz_app:result_detail', args=[result.pk]))
     else:
         questions = quiz.get_questions()
@@ -57,4 +65,3 @@ def quiz_details(request, pk: int):
 class ResultDetailView(LoginRequiredMixin, DetailView):
     model = models.Result
     template_name = 'library/result_detail.html'
-

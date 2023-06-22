@@ -4,13 +4,13 @@
   <h1>Quiz Result</h1>
   <h2>{{ object.quiz.name }}</h2>
   <p>{{ object.user.username }}</p>
-  <p>Score: {{ object.score }}%</p>
+  <p>Your score: {{ object.score }}%</p>
 
   <h3>Correctly answered questions:</h3>
   <ul>
     {% for question in object.questions_attempted.all %}
       <li>
-        <p>Question: {{ question.text }}</p>
+        <p>Question: {{ question.text|safe }}</p>
         <p>Answer:
           {% for answer in object.user_answers.all %}
             {% if answer.question == question %}
@@ -27,14 +27,21 @@
     {% for question in object.quiz.questions.all %}
       {% if question not in object.questions_attempted.all %}
         <li>
-          <p>Question: {{ question.text }}</p>
-          <p>Correct Answer:
-            {% for answer in question.answers.all %}
-              {% if answer.correct %}
-                {{ answer.text }}
-              {% endif %}
-            {% endfor %}
-          </p>
+            <p>Question: {{ question.text|safe }}</p>
+            <p>Correct answer:
+                {% for answer in question.answers.all %}
+                    {% if answer.correct %}
+                        {{ answer.text }}
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <p>Your answer:
+                {% for answer in object.user_incorrect_answers.all %}
+                    {% if answer.question == question %}
+                        {{ answer.text }}
+                    {% endif %}
+                {% endfor %}
+            </p>
         </li>
       {% endif %}
     {% endfor %}

@@ -103,6 +103,13 @@ class Result(models.Model):
         related_name="user_results",
     )
 
+    user_incorrect_answers = models.ManyToManyField(
+        Answer,
+        verbose_name=_("user incorrect answers"),
+        blank=True,
+        related_name="user_incorrect_results",
+    )
+
     class Meta:
         verbose_name = _("result")
         verbose_name_plural = _("results")
