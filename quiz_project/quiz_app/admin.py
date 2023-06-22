@@ -16,7 +16,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class QuizAdmin(admin.ModelAdmin):
     model = models.Quiz
-    list_display = ('name', 'topic', 'number_of_questions')
+    list_display = ('name',  'number_of_questions', 'score_to_pass', 'date_created', 'display_topic',)
     list_filter = ('topic', )
     search_fields = ('name', )
 
@@ -26,6 +26,11 @@ class ResultAdmin(admin.ModelAdmin):
     list_display = ('quiz', 'user', 'score')
 
 
+class TopicAdmin(admin.ModelAdmin):
+    model = models.Topic
+    list_display = ('name', )
+
+admin.site.register(models.Topic, TopicAdmin)
 admin.site.register(models.Quiz, QuizAdmin)
 admin.site.register(models.Question, QuestionAdmin)
 admin.site.register(models.Answer)

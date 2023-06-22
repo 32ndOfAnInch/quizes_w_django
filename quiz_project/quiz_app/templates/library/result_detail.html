@@ -4,7 +4,13 @@
   <h1>Quiz Result</h1>
   <h2>{{ object.quiz.name }}</h2>
   <p>{{ object.user.username }}</p>
+  {% if object.score >= object.quiz.score_to_pass %}
+  <p>Congratulations! You have passed the quiz!</p>
+  {% else %}
+  <p>Unfortunately, you have failed to pass the quiz..</p>
+  {% endif %}
   <p>Your score: {{ object.score }}%</p>
+  <p>Required score to pass: {{ object.quiz.score_to_pass }}%</p>
     <br>
   <h3>Correctly answered questions:</h3>
   <ul>

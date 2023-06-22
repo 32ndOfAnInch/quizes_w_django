@@ -241,3 +241,16 @@ label[for='id_content'] {
     background-color: #279b2b;
     cursor: pointer;
 }
+
+.quiz-input:hover {
+    cursor: pointer;
+}
+
+.hr-between-question hr {
+    border-color: #ebdddd;
+}
+
+.quiz-form-name {
+    margin-left: 10px;
+    margin-top: 15px;
+}

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="quiz-form-name">
 <h1>{{ quiz.name }}</h1>
+</div>
 <br>
 <hr>
 <br>
@@ -19,13 +20,17 @@
                 <li>
                     <div class="answer-label">
                     <label>
-                        <input type="radio" name="question{{ question.id }}" value="{{ answer.id }}"> 
+                        <input class="quiz-input" type="radio" name="question{{ question.id }}" value="{{ answer.id }}"> 
                         {{ answer.text }}
                     </label>
                     </div>
                 </li>
             {% endfor %}
         </ul>
+        <br>
+        <div class="hr-between-question">
+        <hr>
+        </div>
         <br>
     {% endfor %}
     <button class="button-submit-quiz" type="submit">Submit</button>

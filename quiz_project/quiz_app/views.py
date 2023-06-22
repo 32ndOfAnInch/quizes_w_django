@@ -49,10 +49,9 @@ def quiz_details(request, pk: int):
             user=request.user,
             score=round((score/quiz.number_of_questions*100),2)
         )
-        result.questions_attempted.set(attempted_questions)  # Set the attempted questions
-        result.user_answers.set(user_answers)  # Set user's answers for the correctly answered questions
-        result.user_incorrect_answers.set(user_incorrect_answers)  # Set user's answers for incorrectly answered questions
-        print(user_incorrect_answers)
+        result.questions_attempted.set(attempted_questions)
+        result.user_answers.set(user_answers)
+        result.user_incorrect_answers.set(user_incorrect_answers)
         return HttpResponseRedirect(reverse('quiz_app:result_detail', args=[result.pk]))
     else:
         questions = quiz.get_questions()
