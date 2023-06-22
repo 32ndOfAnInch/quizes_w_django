@@ -5,7 +5,7 @@
   <h2>{{ object.quiz.name }}</h2>
   <p>{{ object.user.username }}</p>
   <p>Your score: {{ object.score }}%</p>
-
+    <br>
   <h3>Correctly answered questions:</h3>
   <ul>
     {% for question in object.questions_attempted.all %}
@@ -14,14 +14,15 @@
         <p>Answer:
           {% for answer in object.user_answers.all %}
             {% if answer.question == question %}
-              {{ answer.text }}
+              {{ answer.text }} &#9989;
             {% endif %}
           {% endfor %}
         </p>
       </li>
+      <hr>
     {% endfor %}
   </ul>
-
+<br>
   <h3>Unanswered or incorrectly answered questions:</h3>
   <ul>
     {% for question in object.quiz.questions.all %}
@@ -38,11 +39,13 @@
             <p>Your answer:
                 {% for answer in object.user_incorrect_answers.all %}
                     {% if answer.question == question %}
-                        {{ answer.text }}
+                        {{ answer.text }} &#10060;
+                    {% comment %} elif logic when question was unanswered {% endcomment %}
                     {% endif %}
                 {% endfor %}
             </p>
         </li>
+        <hr>
       {% endif %}
     {% endfor %}
   </ul>

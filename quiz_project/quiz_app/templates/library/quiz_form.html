@@ -3,22 +3,33 @@
 {% block content %}
 
 <h1>{{ quiz.name }}</h1>
+<br>
+<hr>
+<br>
+<div class="quiz-form-body">
 <form method="post" action="">
     {% csrf_token %}
     {% for question in questions %}
-        <p>{{ question.text|safe }}</p>
+        <div class="question">
+            <div class="question-number">{{ forloop.counter }}.</div>
+            <div class="question-text">{{ question.text|safe }}</div>
+        </div>
         <ul>
             {% for answer in question.answers.all %}
                 <li>
+                    <div class="answer-label">
                     <label>
                         <input type="radio" name="question{{ question.id }}" value="{{ answer.id }}"> 
                         {{ answer.text }}
                     </label>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
+        <br>
     {% endfor %}
-<input type="submit" value="Submit">
+    <button class="button-submit-quiz" type="submit">Submit</button>
 </form>
+</div>
 
 {% endblock content %}
