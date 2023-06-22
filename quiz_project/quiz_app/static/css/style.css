@@ -254,3 +254,19 @@ label[for='id_content'] {
     margin-left: 10px;
     margin-top: 15px;
 }
+
+/* quiz rezults */
+
+.passed-test {
+    color: #104b12;
+    font-weight: 600;
+}
+
+.failed-test {
+    color: #a50d0d;
+    font-weight: 600;
+}
+
+.results-header {
+    margin-left: 10px;
+}

@@ -1,21 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Quiz Result</h1>
-  <h2>{{ object.quiz.name }}</h2>
-  <p>{{ object.user.username }}</p>
-  {% if object.score >= object.quiz.score_to_pass %}
-  <p>Congratulations! You have passed the quiz!</p>
-  {% else %}
-  <p>Unfortunately, you have failed to pass the quiz..</p>
-  {% endif %}
-  <p>Your score: {{ object.score }}%</p>
-  <p>Required score to pass: {{ object.quiz.score_to_pass }}%</p>
+    <h1>Quiz result</h1>
+    <div class="results-header">
+    <h2>{{ object.quiz.name }}</h2>
+    <h3>{{ object.user.username }}</h3>
+    {% if object.score >= object.quiz.score_to_pass %}
+        <div class="passed-test">
+        <p>Congratulations! You have passed the quiz!</p>
+        </div>
+    {% else %}
+        <div class="failed-test">
+        <p>Unfortunately, you have failed to pass the quiz..</p>
+        </div>
+    {% endif %}
+    <h4>Your score: {{ object.score }}%</h4>
+    <h4>Required score to pass: {{ object.quiz.score_to_pass }}%</h4>
+    </div>
     <br>
-  <h3>Correctly answered questions:</h3>
-  <ul>
+    <h3>Correctly answered questions:</h3>
+    <ul>
     {% for question in object.questions_attempted.all %}
-      <li>
+        <li>
         <p>Question: {{ question.text|safe }}</p>
         <p>Answer:
           {% for answer in object.user_answers.all %}
@@ -24,24 +30,24 @@
             {% endif %}
           {% endfor %}
         </p>
-      </li>
-      <hr>
+        </li>
+        <hr>
     {% endfor %}
-  </ul>
+    </ul>
 <br>
-  <h3>Unanswered or incorrectly answered questions:</h3>
-  <ul>
+<h3>Unanswered or incorrectly answered questions:</h3>
+    <ul>
     {% for question in object.quiz.questions.all %}
-      {% if question not in object.questions_attempted.all %}
-        <li>
-            <p>Question: {{ question.text|safe }}</p>
-            <p>Correct answer:
+        {% if question not in object.questions_attempted.all %}
+            <li>
+                <p>Question: {{ question.text|safe }}</p>
+                <p>Correct answer:
                 {% for answer in question.answers.all %}
                     {% if answer.correct %}
                         {{ answer.text }}
                     {% endif %}
                 {% endfor %}
-            </p>
+                </p>
             <p>Your answer:
                 {% for answer in object.user_incorrect_answers.all %}
                     {% if answer.question == question %}
@@ -50,10 +56,10 @@
                     {% endif %}
                 {% endfor %}
             </p>
-        </li>
+            </li>
         <hr>
-      {% endif %}
+        {% endif %}
     {% endfor %}
-  </ul>
+    </ul>
   
 {% endblock content %}
