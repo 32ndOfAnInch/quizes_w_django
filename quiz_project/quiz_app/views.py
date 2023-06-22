@@ -1,4 +1,7 @@
+from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.db.models.query import QuerySet
 from django.http import JsonResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -18,11 +21,22 @@ def index(request):
     return render(request, 'library/index.html', context)
 
 
-def quiz_list(request):
-    quizzes = models.Quiz.objects.all()
-    return render(request, 'library/quiz_list.html', {
-        'quizzes': quizzes
-        })
+class QuizListView(LoginRequiredMixin, ListView):
+    model = models.Quiz
+    paginate_by = 5
+    template_name = 'library/quiz_list.html'
+    context_object_name = 'quizzes'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        query = self.request.GET.get('query')
+        if query:
+            qs = qs.filter(
+                Q(name__icontains=query)
+                # Q(author__last_name__istartswith=query) # when foreign key amd starts with
+            )
+        return qs
+
 
 def quiz_details(request, pk: int):
     quiz = get_object_or_404(models.Quiz, pk=pk)

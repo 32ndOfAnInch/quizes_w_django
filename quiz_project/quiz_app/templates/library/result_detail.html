@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="result-title">
     <h1>Quiz result</h1>
+    <br>
+    <hr>
+    <br>
+    </div>
     <div class="results-header">
-    <h2>{{ object.quiz.name }}</h2>
-    <h3>{{ object.user.username }}</h3>
+    <h3>Quiz: {{ object.quiz.name }}</h3>
+    <h3>User name: {{ object.user.username }}</h3>
+    <br>
     {% if object.score >= object.quiz.score_to_pass %}
         <div class="passed-test">
         <p>Congratulations! You have passed the quiz!</p>
@@ -16,9 +22,13 @@
     {% endif %}
     <h4>Your score: {{ object.score }}%</h4>
     <h4>Required score to pass: {{ object.quiz.score_to_pass }}%</h4>
-    </div>
     <br>
+    </div>
+    <hr>
+    <br>
+    <div class="results-body">
     <h3>Correctly answered questions:</h3>
+    <br>
     <ul>
     {% for question in object.questions_attempted.all %}
         <li>
@@ -31,11 +41,16 @@
           {% endfor %}
         </p>
         </li>
+        <br>
+        <div class="result-hr-color">
         <hr>
+        </div>
+        <br>
     {% endfor %}
     </ul>
 <br>
-<h3>Unanswered or incorrectly answered questions:</h3>
+<h3>Incorrectly answered questions:</h3>
+<br>
     <ul>
     {% for question in object.quiz.questions.all %}
         {% if question not in object.questions_attempted.all %}
@@ -57,9 +72,14 @@
                 {% endfor %}
             </p>
             </li>
+            <br>
+        <div class="result-hr-color">
         <hr>
+        </div>
+        <br>
         {% endif %}
     {% endfor %}
     </ul>
+    </div>
   
 {% endblock content %}
