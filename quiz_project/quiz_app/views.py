@@ -43,7 +43,7 @@ def quiz_details(request, pk: int):
     if request.method == 'POST':
         questions = quiz.get_questions()
         score = 0
-        attempted_questions = []  # Store the attempted questions
+        attempted_questions = []  # Store the attempted questions (unaswered on not correct)
         user_answers = []
         user_incorrect_answers = []
 
