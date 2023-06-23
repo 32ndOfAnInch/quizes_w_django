@@ -344,3 +344,47 @@ footer p {
 form {
     padding: 0.5rem;
 }
+
+/* quiz list */
+
+.quiz_list_container {
+    margin-left: 15px;
+}
+
+.quiz_list_container p {
+    font-size: 120%;
+}
+
+
+/* test languange but */
+
+.language-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.language-form {
+    margin-right: 2px;
+}
+
+.language-button {
+    padding: 0px;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+.language-button:hover {
+    text-decoration: underline;
+}
+
+.language-button.active {
+    font-weight: bold;
+}
+
+.language-separator {
+    margin: 0 1px;
+    color: #fff;
+}

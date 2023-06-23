@@ -58,17 +58,25 @@
             </li>
             {% endif %}
             <li class="nav-item">
-            <form action="{% url 'set_language' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ redirect_to }}">
-                <select name="language" onchange="this.form.submit();">
-                    {% for lang in LANGUAGES %}
-                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
-                            {{ lang.1 }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </form>
+                <div class="language-buttons">
+                    <form action="{% url 'set_language' %}" method="post" class="language-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ redirect_to }}">
+                        <input type="hidden" name="language" value="lt">
+                        <button type="submit" class="language-button {% if LANGUAGE_CODE == 'lt' %}active{% endif %}">
+                            LT
+                        </button>
+                    </form>
+                    <span class="language-separator">|</span>
+                    <form action="{% url 'set_language' %}" method="post" class="language-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ redirect_to }}">
+                        <input type="hidden" name="language" value="en">
+                        <button type="submit" class="language-button {% if LANGUAGE_CODE == 'en' %}active{% endif %}">
+                            EN
+                        </button>
+                    </form>
+                </div>
             </li>
         </ul>
     </nav>

@@ -9,8 +9,9 @@
 {% for quiz in quizzes %}
     <div class='quiz_list_container'>
         <li>
-        <h2>{{ quiz.name }}</h2>
-        <a href="{% url 'quiz_app:quiz_details' quiz.pk %}">{{ quiz.name }}</a>
+        <h2><a href="{% url 'quiz_app:quiz_details' quiz.pk %}">{{ quiz.name }}</a></h2>
+        <p>Number of questions: {{ quiz.number_of_questions }}</p>
+        <p>Score to pass: {{ quiz.score_to_pass }}%</p>
         </li>
     </div>
     <br>
